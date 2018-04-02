@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+body {
+  padding: 50px;
+}
+
+.progress-bg {
+	margin: 0 auto;
+	width: 65%;
+	height: 78px;
+	border-radius: 10px;
+  text-align: center;
+	background: white;
+	-moz-box-shadow:    inset 0 0 10px #ccc;
+	-webkit-box-shadow: inset 0 0 10px #ccc;
+	box-shadow:         inset 0 0 10px #ccc;
+}
+#yazi
+{
+}
+.progress-bar {
+    	height: 78px;
+	border-radius: 10px;
+	float: left;
+	/* fallback */
+	background-color: #1c314a;
+}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+</head>
+<body>
+<div class="raised" style="color:green; text-align: center; font-size: 25px;" id="yazi"></div>
+<div class="progress-bg">
+    <div class="progress-bar" id="degis" style="width: 0%;">
+        <h3 class="raised" style="color:green; text-align: center; font-size: 25px;" id="oran"></h3>
+    </div>
+    <h3 class="goal"></h3>
+</div>
+<script language="JavaScript">
+setInterval(function(){myFunction(); }, 3000);
+
+function myFunction() {
+    steem.api.getFollowCount('{{username}}', function(err, result) {
+    document.getElementById('yazi').innerHTML = "Follower-"+result.follower_count+"/"+"{{goal}}-Goal";
+	var rate=result.follower_count/{{goal}}*100;
+	if(100<rate){rate=100;}
+	document.getElementById('degis').setAttribute("style","width:"+ rate + "%");
+	document.getElementById('oran').innerHTML = "%"+rate;
+});
+}
+</script>
+</body>
+</html>

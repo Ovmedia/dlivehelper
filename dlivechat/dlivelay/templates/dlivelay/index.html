@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+</head>
+<body>
+<form method="post">{% csrf_token %}
+<input id="link" type="text" placeholder="Username" name="name" required>
+<button type="submit">Get My Stream</button>
+</form>
+
+{% if author  %}
+    <button onclick="follower()" class="button">Follower Count </button>
+
+
+{% for dict in posts %}
+    {% for key_i, val_i in dict.items %}
+<div>
+    <button onclick="myFunction('{{val_i}}')" class="button">Chat: {{ key_i }} </button>
+    <button onclick="upvoter('{{val_i}}')" class="button">Upvote Alert </button>
+</div>
+    {% endfor %}
+{% endfor %}
+<div>
+<input type="text" placeholder="" id="fcount" readonly> /
+<input type="text" placeholder="Goal" id="goal" required>
+<button onclick="goal()" class="button">Follower Goal </button>
+</div>
+{% endif %}
+
+<script language="JavaScript">
+
+function myFunction(permlink) {
+    window.open("chat/{{author}}/"+permlink, "", "width=984, height=300");
+}
+
+function follower() {
+    window.open("fcount/{{author}}/", "", "width=984, height=300");
+}
+
+function upvoter(permlink) {
+    window.open("upvote/{{author}}/"+permlink, "", "width=984, height=300");
+}
+
+function goal() {
+    var goal=parseInt(document.getElementById('goal').value)
+    if(goal){
+        window.open("fgoal/{{author}}/"+parseInt(document.getElementById('goal').value), "width=984, height=300");
+    }
+}
+
+steem.api.getFollowCount('{{author}}', function(err, result) {
+document.getElementById('fcount').value = result.follower_count;
+});
+
+</script>
+</body>
+</html>

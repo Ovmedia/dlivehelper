@@ -1,0 +1,35 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<style>
+#fcount{
+    color: white;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 200px;
+    position: absolute;
+}
+body{
+    background-color:#009933;
+}
+</style>
+
+
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+</head>
+<body>
+<div id='fcount' class='fcount'>
+</div>
+
+<script language="JavaScript">
+setInterval(function(){myFunction(); }, 3000);
+
+function myFunction() {
+    steem.api.getFollowCount('{{username}}', function(err, result) {
+    document.getElementById('fcount').innerHTML = result.follower_count;
+});
+}
+
+</script>
+</body>
+</html>

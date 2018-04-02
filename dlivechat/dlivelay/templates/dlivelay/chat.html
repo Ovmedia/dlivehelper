@@ -1,0 +1,132 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<style>
+
+#message_block{
+    left: 0;
+    bottom: 0;
+    position: absolute;
+
+}
+message {
+    animation: mymove 5s infinite;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    color: white;
+}
+
+body{
+    background-color:#009933;
+}
+
+name{
+    font-family: "Times New Roman", Times, serif;
+    color: red;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000
+    ; 
+
+}
+
+h1 {
+	font-size: 15px;
+	margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 30px
+}
+
+@keyframes mymove {
+    from {top: 200px;}
+    to {top: 0px;}
+}
+
+
+
+</style>
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+</head>
+<body>
+<div id="message_block" class="message_block">
+
+</div>
+
+<script language="JavaScript">
+var colors=['#660066','#0000cc','#00ff00','#ffff00','#ff9933','#cc3399']
+
+function getColor(username)
+{
+    var count=0;
+    for (var i=0 ; i<4 ; i++)
+    {
+        count += (username[i].charCodeAt(0))
+
+    }
+    count=count%10
+    count=Math.floor(count/2)
+    return colors[count]
+}
+var oblength=0;
+setInterval(function(){myFunction(); }, 3000);
+function myFunction() {
+steem.api.getContentReplies('{{username}}', '{{permlink}}', function(err, result) {
+    if (oblength==0)
+    {
+        for (var i in result) {
+            if (['steemitboard', 'rahmad07', 'guard','drewardsresteem', 'steem-network', 'destektr', 'discoversteem'].indexOf(result[i].author) >= 0){continue;}
+            var doc = document.createElement("h1")
+            var author = document.createElement("name")
+            var message = document.createElement("message")
+            author.appendChild(document.createTextNode(result[i].author + ":"));
+            if("{{username}}" == result[i].author)
+            {
+                author.setAttribute("style", "color: red;");
+            }
+            else
+            {
+                author.setAttribute("style", "color:"+getColor(result[i].author)+";");
+            }
+            doc.appendChild(author)
+            message.setAttribute("style", "animation: mymove 1s infinite;");
+            message.appendChild(document.createTextNode(result[i].body));
+            doc.appendChild(message)
+            document.getElementById('message_block').appendChild(doc);
+        }
+        oblength=result.length
+        console.log(typeof oblength)
+    }
+
+    if(oblength < result.length)
+    {
+        for (i=oblength;i<result.length;i++)
+        {
+            if (['steemitboard', 'rahmad07', 'guard','drewardsresteem', 'steem-network', 'destektr', 'discoversteem'].indexOf(result[i].author) >= 0){continue;}
+            var doc = document.createElement("h1")
+            var author = document.createElement("name")
+            var message = document.createElement("message")
+            author.appendChild(document.createTextNode(result[i].author + ":"));
+            if("{{username}}" == result[i].author)
+            {
+                author.setAttribute("style", "color: red;");
+            }
+            else
+            {
+                author.setAttribute("style", "color:"+getColor(result[i].author)+";");
+            }
+            doc.appendChild(author)
+            message.appendChild(document.createTextNode(result[i].body));
+            doc.appendChild(message)
+            document.getElementById('message_block').appendChild(doc);
+            oblength=result.length;
+        }
+    }
+});
+}
+
+</script>
+</body>
+</html>

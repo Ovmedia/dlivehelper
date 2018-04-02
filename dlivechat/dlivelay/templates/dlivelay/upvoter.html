@@ -1,0 +1,94 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+<style>
+body{
+    background-color:#009933;
+}
+#lastupvote{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 200px;
+    position: absolute;
+    color: white;
+}
+#upvotediv{
+    margin-left: 50px;
+    font-size: 66px;
+    position: absolute;
+    color: white;
+}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+</head>
+<body>
+<audio id="myAudio" controls style="display:none">
+    <source src="{% static 'sound/alert.mp3' %}" type="audio/mpeg">
+</audio>
+<div class="alert" style="display:none">
+<img src="{% static 'picture/alert.gif' %}" alt="Mountain View" height="450" width="750">
+<div id="upvotediv" class="upvotediv" ></div>
+</div>
+
+<script language="JavaScript">
+setInterval(function(){upVoteAlert(); }, 3000);
+var upvotecount = 0
+var sonuc = 0
+var upvoter= ''
+function upVoteAlert() {
+    steem.api.getActiveVotes('{{username}}', '{{permlink}}', function(err, result) {
+        sonuc=0
+        var lastdate="2017-03-16T20:37:18"
+        for (var i in result)
+        {
+            if(Date.parse(result[i].time)>Date.parse(lastdate))
+            {
+                upvoter=result[i].voter;
+                lastdate=result[i].time;
+            }
+            if(result[i].rshares != 0)
+            {
+                sonuc += 1
+            }
+        }
+        if (upvotecount == 0)
+        {
+            upvotecount=sonuc;
+        }
+        else if (upvotecount<sonuc)
+        {
+            document.getElementById('upvotediv').innerHTML = 'Upvoted By ' + upvoter;
+            goAlert();
+            playSound();
+            upvotecount=sonuc;
+        }
+        else if (upvotecount>sonuc)
+        {
+            upvotecount=sonuc;
+        }
+
+
+});
+}
+
+function playSound() {
+    var x = document.getElementById("myAudio");
+    x.play();
+}
+
+
+function goAlert() {
+$(function () {
+    $('.alert').fadeIn('slow', function () {
+        $(this).fadeIn('slow');
+        $(this).delay(3000).fadeOut('slow');
+    });
+});
+}
+
+</script>
+</body>
+</html>
