@@ -5,19 +5,7 @@ import urllib, json
 
 
 def dlivelay_index(request):
-    if request.method == 'POST':
-        username = request.POST.get("name", "")
-        url = "https://api.steemjs.com/get_discussions_by_author_before_date?author="+username+"&beforeDate=2016-07-23T22%3A00%3A06&limit=50"
-        data = requests.get(url)
-        posts=data.json()
-        newdict=[]
-        for post in posts:
-            if post['category']=='dlive':
-                newdict.append({post['title']:post['permlink']})
-                break
-        return render(request, 'dlivelay/index.html',{'posts': newdict, 'author': post['author']})
-    else:
-        return render(request, 'dlivelay/index.html')
+    return render(request, 'dlivelay/index.html')
 
 
 def chat(request, username, permlink):
@@ -32,3 +20,18 @@ def follower_goal(request, username, goal):
 
 def upvoter(request, username, permlink):
     return render(request, 'dlivelay/upvoter.html', {'username':username, 'permlink':permlink})
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get("find", "")
+        url = "https://api.steemjs.com/get_discussions_by_author_before_date?author="+username+"&beforeDate=2016-07-23T22%3A00%3A06&limit=50"
+        data = requests.get(url)
+        posts=data.json()
+        newdict=[]
+        for post in posts:
+            if post['category']=='dlive':
+                newdict.append({post['title']:post['permlink']})
+                break
+        return render(request, 'dlivelay/index.html',{'posts': newdict, 'author': post['author']})
+    else:
+        return render(request, 'dlivelay/main.html')

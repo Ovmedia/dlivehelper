@@ -26,7 +26,7 @@ body{
 </head>
 <body>
 <audio id="myAudio" controls style="display:none">
-    <source src="{% static 'sound/alert.mp3' %}" type="audio/mpeg">
+    <source src="{% static 'sound/alert2.mp3' %}" type="audio/mpeg">
 </audio>
 <div class="alert" style="display:none">
 <img src="{% static 'picture/alert.gif' %}" alt="Mountain View" height="450" width="750">
@@ -84,7 +84,7 @@ function goAlert() {
 $(function () {
     $('.alert').fadeIn('slow', function () {
         $(this).fadeIn('slow');
-        $(this).delay(3000).fadeOut('slow');
+        $(this).delay(8000).fadeOut('slow');
     });
 });
 }

@@ -6,10 +6,6 @@
 <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
 </head>
 <body>
-<form method="post">{% csrf_token %}
-<input id="link" type="text" placeholder="Username" name="name" required>
-<button type="submit">Get My Stream</button>
-</form>
 
 {% if author  %}
     <button onclick="follower()" class="button">Follower Count </button>

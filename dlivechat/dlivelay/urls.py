@@ -4,7 +4,8 @@ from django.urls import path
 
 
 urlpatterns = [
-    url(r'^$', views.dlivelay_index, name='index'),
+    path('index/', views.dlivelay_index, name='index'),
+    path('', views.login, name='main'),
     path('fcount/<username>/', views.follower_count, name='fcount'),
     path('fgoal/<username>/<goal>/', views.follower_goal, name='fcount'),
     path('chat/<username>/<permlink>/', views.chat, name='chat'),

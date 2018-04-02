@@ -77,7 +77,7 @@ steem.api.getContentReplies('{{username}}', '{{permlink}}', function(err, result
     if (oblength==0)
     {
         for (var i in result) {
-            if (['steemitboard', 'rahmad07', 'guard','drewardsresteem', 'steem-network', 'destektr', 'discoversteem'].indexOf(result[i].author) >= 0){continue;}
+            if (['iripilippopolis','nasacort','steemitboard', 'rahmad07', 'guard','drewardsresteem', 'steem-network', 'destektr', 'discoversteem'].indexOf(result[i].author) >= 0){continue;}
             var doc = document.createElement("h1")
             var author = document.createElement("name")
             var message = document.createElement("message")
@@ -104,7 +104,7 @@ steem.api.getContentReplies('{{username}}', '{{permlink}}', function(err, result
     {
         for (i=oblength;i<result.length;i++)
         {
-            if (['steemitboard', 'rahmad07', 'guard','drewardsresteem', 'steem-network', 'destektr', 'discoversteem'].indexOf(result[i].author) >= 0){continue;}
+            if (['iripilippopolis','steemitboard', 'rahmad07', 'guard','drewardsresteem', 'steem-network', 'destektr', 'discoversteem'].indexOf(result[i].author) >= 0){continue;}
             var doc = document.createElement("h1")
             var author = document.createElement("name")
             var message = document.createElement("message")
