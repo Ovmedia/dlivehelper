@@ -1,6 +1,4 @@
 
-Live on:http://kafamerkezi.asuscomm.com
-its the temporary link
 
 
 
